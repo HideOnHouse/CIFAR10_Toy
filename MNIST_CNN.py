@@ -6,17 +6,20 @@ import torch.utils.data
 import torchvision
 
 
-class SimpleFNN(torch.nn.Module):
+class SimpleCNN(torch.nn.Module):
     def __init__(self):
-        super(SimpleFNN, self).__init__()
+        super(SimpleCNN, self).__init__()
         self.features = torch.nn.Sequential(
-            torch.nn.Linear(28, 56, bias=True),
-            torch.nn.ReLU(),
-            torch.nn.Linear(56, 28, bias=True)
+            torch.nn.Conv2d(1, 24, 3),
+            torch.nn.LeakyReLU(),
+            torch.nn.MaxPool2d(4),
+            torch.nn.Conv2d(24, 48, 3),
+            torch.nn.LeakyReLU(),
+            torch.nn.MaxPool2d(4)
         )
 
         self.classifier = torch.nn.Sequential(
-            torch.nn.Linear(784, 10, bias=True)
+            torch.nn.Linear(48, 10, bias=True)
         )
 
     def forward(self, x):
@@ -28,11 +31,11 @@ class SimpleFNN(torch.nn.Module):
 
 def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = SimpleFNN()
+    model = SimpleCNN()
     model.to(device)
 
     # Hyper Parameter
-    epoch = 20
+    epoch = 5
     batch_size = 100
     learning_rate = 0.001
 
@@ -54,7 +57,7 @@ def main():
     # Train Sequence
     model.train()
     criterion = torch.nn.CrossEntropyLoss().to(device)
-    optimizer = torch.optim.SGD(params=model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.AdamW(params=model.parameters(), lr=learning_rate)
     for i in range(epoch):
         temp = 0
         for data, label in tqdm(train_loader):
