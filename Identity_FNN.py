@@ -1,7 +1,5 @@
 import random
 
-from tqdm import tqdm
-
 import torch
 import torch.nn
 import torch.functional
@@ -59,7 +57,6 @@ def main():
 
     # Make Train set and Test set
     train_set = CustomDataSet(10000)
-    test_set = CustomDataSet(1000)
 
     # Start Learning
     model.train()
