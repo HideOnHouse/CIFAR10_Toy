@@ -172,3 +172,7 @@ Backup of *.doc*
 *.csv
 *.pth
 *.pkl
+
+data/
+data/MNIST/
+data/cifar-100-python/file.txt~
