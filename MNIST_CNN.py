@@ -15,7 +15,7 @@ class SimpleCNN(torch.nn.Module):
             torch.nn.MaxPool2d(4),
             torch.nn.Conv2d(24, 48, 3),
             torch.nn.LeakyReLU(),
-            torch.nn.MaxPool2d(4)
+            torch.nn.MaxPool2d(4)  # method 1
         )
 
         self.classifier = torch.nn.Sequential(

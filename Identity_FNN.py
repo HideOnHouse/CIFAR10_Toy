@@ -72,7 +72,7 @@ def main():
             loss.backward()
             optimizer.step()
             temp = loss.item()
-        print("Epoch : %s, Loss : %s" % (i+1, temp))
+        print("Epoch : %s, Loss : %s" % (i + 1, temp))
 
     # Evaluation Start
     while True:
