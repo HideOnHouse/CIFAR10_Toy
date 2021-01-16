@@ -1,4 +1,4 @@
-# CIFAR10 Torch CNN Toy
+# CIFAR10 Pytorch CNN Toy
 Torch implementation of prominent CNN Networks
 - FNN
 - LeNet
