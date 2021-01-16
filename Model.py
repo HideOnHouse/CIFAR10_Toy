@@ -8,8 +8,11 @@ class FNN(nn.Module):
         super(FNN, self).__init__()
         self.features = nn.Sequential(
             nn.Linear(3072, 768),
+            nn.CELU(),
             nn.Linear(768, 192),
+            nn.CELU(),
             nn.Linear(192, 48),
+            nn.CELU(),
             nn.Linear(48, 10)
         )
         self.classifier = nn.Sequential()
@@ -87,6 +90,7 @@ class AlexNet(nn.Module):
         )
         self.classifier = nn.Sequential(
             nn.Linear(32, 4096),
+            nn.ReLU(),
             nn.Linear(4096, 10)
         )
 
