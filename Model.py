@@ -101,11 +101,52 @@ class AlexNet(nn.Module):
         return out
 
 
+# CNN adjusted due to image resolution difference
 class VGG(nn.Module):
     def __init__(self):
         super(VGG, self).__init__()
-        self.features = nn.Sequential()
-        self.classifier = nn.Sequential()
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 8, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(8, 8, 1, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(8, 16, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(16, 16, 1, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(16, 32, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 1, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(32, 64, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 1, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(64, 64, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 1, 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2)
+        )
+        self.classifier = nn.Sequential(
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Dropout(),
+            nn.Linear(64, 32),
+            nn.ReLU(),
+            nn.Dropout(),
+            nn.Linear(32, 10)
+        )
 
     def forward(self, x):
         x = self.features(x)

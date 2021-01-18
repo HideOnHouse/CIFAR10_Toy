@@ -17,13 +17,12 @@ def main(args):
         exit(0)
     today = str(datetime.date.today()).replace("-", "")
 
-    model = AlexNet()
+    model = VGG()
     batch_size = 1024
     epoch = 16
-    lr = 1e-4
     save_path = os.curdir + os.sep + '{}_model.pth'.format(today)
-    # batch_size = args[2]
-    # epoch = args[3]
+    batch_size = int(args[2])
+    epoch = int(args[3])
     # lr = args[4]
     # save_path = args[5]
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -32,7 +31,7 @@ def main(args):
                                   persistent_workers=True)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    optimizer = torch.optim.AdamW(model.parameters())
     model.to(device)
     criterion.to(device)
     model.train()
