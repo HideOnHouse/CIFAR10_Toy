@@ -7,7 +7,7 @@ Torch implementation of prominent CNN Networks
 - GooLeNet
 - ResNet
 
-## Useage
+## Usage
 ```
 python Train.py [model] [batch_size] [epoch]
 * Available model: FNN, LeNet, AlexNet, VGG16, ResNet32
