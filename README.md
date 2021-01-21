@@ -3,9 +3,8 @@ Torch implementation of prominent CNN Networks
 - FNN
 - LeNet
 - AlexNet
-- VGG
-- GooLeNet
-- ResNet
+- VGG16
+- ResNet34
 
 ## Usage
 ```
