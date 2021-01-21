@@ -1,13 +1,13 @@
 import os
 from sys import argv
 
+from matplotlib import pyplot as plt
 from torch.utils.data.dataloader import DataLoader
 from torchvision import transforms
 from torchvision.datasets import CIFAR10
 from tqdm import tqdm
 
 from Model import *
-from matplotlib import pyplot as plt
 
 MODELS = {
     "FNN": FNN,
