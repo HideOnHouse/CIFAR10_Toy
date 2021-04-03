@@ -57,7 +57,7 @@ def main(args):
                 if label[idx] == prediction[idx]:
                     class_correct[label[idx]] += 1
             if view:
-                plt.title(f"Model Prediction - {classes[prediction[0]]}\nAnswer - {classes[label]}")
+                plt.title(f"Model Prediction - {classes[prediction[0]]}\nAnswer - {classes[0]}")
                 plt.imshow(torch.transpose(torch.transpose(image[0], 0, 2), 0, 1).numpy())
                 plt.show()
     for idx in range(len(classes)):

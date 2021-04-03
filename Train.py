@@ -20,20 +20,25 @@ MODELS = {
 
 def main(args):
     if len(args) == 1:
-        print("Usage: python Train.py [model] [batch_size] [epoch]")
-        print("Available model: FNN, LeNet, AlexNet, VGG16, ResNet32")
+        print("Usage: python Train.py [model] [batch_size] [epoch] [cuda:num]")
+        print("Available model: FNN, LeNet, AlexNet, VGG16, ResNet34")
         exit(0)
     today = str(datetime.date.today()).replace("-", "")
 
     model = MODELS[args[1]]()
     batch_size = int(args[2])
     epoch = int(args[3])
+    cuda_num = int(args[4])
     save_path = os.curdir + os.sep + f'{today}_{epoch}_{args[1]}.pth'
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = f'cuda:{cuda_num}' if torch.cuda.is_available() else 'cpu'
     transform = transforms.Compose([
         transforms.RandomGrayscale(),
-        transforms.ToTensor(),
-        transforms.Normalize((0, 0, 0), (1, 1, 1), inplace=True)
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.RandomRotation(90),
+        transforms.RandomResizedCrop(32),
+        transforms.ColorJitter(),
+        transforms.ToTensor()
     ])
     train_dataset = CIFAR10(root='./data', train=True, transform=transform, download=True)
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
@@ -45,7 +50,7 @@ def main(args):
     criterion.to(device)
     model.train()
     for e in range(1, epoch + 1):
-        with tqdm(train_dataloader) as t:
+        with tqdm(train_dataloader, ascii=True) as t:
             for image, label in t:
                 image = image.to(device)
                 label = label.to(device)
